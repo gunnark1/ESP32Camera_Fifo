@@ -15,8 +15,8 @@
 //Wifi credentials
 #define ssid1        "Get-1a0f16"
 #define password1    "278831876"
-//#define ssid2        "Gunnars iPhone"
-//#define password2    "abcd1234"
+//#define ssid1        "Gunnars iPhone"
+//#define password1    "abcd1234"
 
 //mqtt credentials
 #ifdef USE_MQTT
@@ -146,8 +146,9 @@ void serve()
             
             for(int i = 0; i < BMP::headerSize; i++)
                client.write(bmpHeader[i]);
-            for(int i = 0; i < XRES * YRES * BYTES_PER_PIXEL; i++)
-               client.write(frame[i]);
+            //for(int i = 0; i < XRES * YRES * BYTES_PER_PIXEL; i++)
+            //   client.write(frame[i]);
+            client.write(frame, XRES * YRES * BYTES_PER_PIXEL);
                
             /*camera.startRead();
             for(int y = 0; y < YRES; y++)
@@ -189,9 +190,13 @@ void readFrame()
 
 void loop() 
 {
+  Serial.println("before readFrame()"); //GK *********
   readFrame();
+  Serial.println("after readFrame()"); //GK *********
   #ifdef USE_TFT
   displayRGB565(frame, XRES, YRES);
   #endif
+  Serial.println("before Serve()"); //GK *********
   serve();
+  Serial.println(""); //GK *********
 }
