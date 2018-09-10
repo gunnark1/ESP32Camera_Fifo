@@ -8,13 +8,13 @@
 #include <WiFiClient.h>
 
 //comment this out if you don't want to use MQTT
-#define USE_MQTT
+//#define USE_MQTT
 //comment this out if you don't want to use a TFT display
-#define USE_TFT
+//#define USE_TFT
 
 //Wifi credentials
-#define ssid1        "YOUR_WIFI_SSID"
-#define password1    "YOUR_WIFI_PASSWORD"
+#define ssid1        "Get-1a0f16"
+#define password1    "278831876"
 //#define ssid2        ""
 //#define password2    ""
 
@@ -88,6 +88,7 @@ void setup()
 
   BMP::construct16BitHeader(bmpHeader, XRES, YRES);
   camera.QQVGARGB565();
+  //camera.QQVGA(); //GK *********** Endret kameramodus
   
   pinMode(VSYNC, INPUT);
   #ifdef USE_TFT
@@ -166,11 +167,22 @@ void serve()
 
 void readFrame()
 {
-  while(!digitalRead(VSYNC));
-  while(digitalRead(VSYNC));
+  //Serial.println("foo");
+  
+  //while(!digitalRead(VSYNC));
+  while(digitalRead(VSYNC)); //GK ******
+  
+  //Serial.println("VSYNC"); //GK *********
+
+  //while(digitalRead(VSYNC));
+  while(!digitalRead(VSYNC));  //GK *********
+  
   camera.stopCapture();
   camera.prepareCapture();
-  while(!digitalRead(VSYNC));
+  
+  //while(!digitalRead(VSYNC));
+  while(digitalRead(VSYNC)); //GK *********
+
   camera.startCapture();
   camera.readFrame(frame, XRES, YRES, BYTES_PER_PIXEL);
 }

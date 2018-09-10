@@ -26,7 +26,7 @@ class FifoCamera
     static const int COM8_AWB = 0x02;    // White balance enable
     static const int COM8_AEC = 0x0;
   static const int REG_COM9 = 0x14;
-  static const int REG_COM10 = 0x15;
+  static const int REG_COM10 = 0x15; //GK ****  COM10 from 0x15 -> 0x17 to set vsync negative
   static const int REG_COM14 = 0x3E;
   static const int REG_COM11 = 0x3B;
   static const int COM11_NIGHT = 0x80;
@@ -192,6 +192,7 @@ class FifoCamera
   
   void QQVGA()
   {
+    i2c.writeRegister(ADDR, REG_COM10, 0x02); //GK ****************** VSYNC negative
     //160x120 (1/4)
     //i2c.writeRegister(ADDR, REG_CLKRC, 0x01);
     i2c.writeRegister(ADDR, REG_COM3, 0x04);  //DCW enable
@@ -255,7 +256,7 @@ class FifoCamera
     frameControl(196, 52, 8, 488); //no clue why horizontal needs such strange values, vertical works ok
     
     i2c.writeRegister(ADDR, REG_MVFP, 0x2b);  //mirror flip
-
+    //i2c.writeRegister(ADDR, REG_COM10, 0x02); //GK ****************** VSYNC negative
     QQVGA();
     
     i2c.writeRegister(ADDR, 0xb0, 0x84);// no clue what this is but it's most important for colors
@@ -308,4 +309,3 @@ class FifoCamera
     i2c.writeRegister(ADDR, 0x6f, 0x9f); // Simple AWB
   }
 };
-
