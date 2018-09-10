@@ -15,7 +15,7 @@
 //Wifi credentials
 #define ssid1        "Get-1a0f16"
 #define password1    "278831876"
-//#define ssid2        ""
+//#define ssid2        "foo"
 //#define password2    ""
 
 //mqtt credentials
