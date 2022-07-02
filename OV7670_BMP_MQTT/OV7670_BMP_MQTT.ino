@@ -14,7 +14,7 @@
 
 //Wifi credentials
 #define ssid1        "Get-1a0f16"
-#define password1    "278831876"
+#define password1    "zzzzzzzz"
 //#define ssid1        "Gunnars iPhone"
 //#define password1    "abcd1234"
 
